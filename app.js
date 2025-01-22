@@ -73,7 +73,7 @@ app.post('/login',async (request,response)=>{
             response.send({jwttoken})
         }else{
             response.status(400)
-            response.send({user:"Invalid Password"})
+            response.send({User:"Invalid Password"})
         }
     }
 })
