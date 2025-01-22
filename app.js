@@ -124,12 +124,22 @@ app.put('/tasks/:id',async(request,response)=>{
     response.send({status:"Task Status Updated Successfully"})
 })
 
+
 //Task Deletion
 app.delete("/tasks/:id",async(request,response)=>{
     const {id}=request.params
     const deletetask=`delete from tasks where id=${id};`;
     await db.run(deletetask)
     response.send({status:"Task Deleted Successfully"})
+})
+
+//tsk update
+app.put('/posts/:id',async(request,response)=>{
+    const {id}=request.params
+    const {caption}=request.body
+    const updatetaskstatus=`update posts set caption='${caption}' where id=${id};`
+    await db.run(updatetaskstatus)
+    response.send({status:"Task Status Updated Successfully"})
 })
 
 //Retrieving posts
