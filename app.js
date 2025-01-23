@@ -154,14 +154,19 @@ cloudinary.config({
 const storage=multer.diskStorage({})
 const upload=multer({storage})
 app.post("/posts",upload.single('file'),async(request,response)=>{
-    const {caption}=request.body
-    const result=await cloudinary.uploader.upload(request.file.path,{
-        folder:"posts"
-    })
-    const imageurl=result.secure_url
-    const postcreatequery=`insert into posts(photo_url,caption)
-    values
-    ('${imageurl}','${caption}');`
-    await db.run(postcreatequery)
-    response.send({post:"New post created successfully"})
+    try{
+        const {caption}=request.body
+        const result=await cloudinary.uploader.upload(request.file.path,{
+            folder:"posts"
+        })
+        const imageurl=result.secure_url
+        const postcreatequery=`insert into posts(photo_url,caption)
+        values
+        ('${imageurl}','${caption}');`
+        await db.run(postcreatequery)
+        response.send({post:"New post created successfully"})
+    }catch(e){
+        console.log(`error, ${e}`)
+    }
+    
 })
