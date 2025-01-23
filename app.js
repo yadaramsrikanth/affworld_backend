@@ -168,7 +168,7 @@ app.post("/posts",upload.single('file'),async(request,response)=>{
         response.send({post:"New post created successfully"})
     }catch(e){
         console.log("error:",e)
-        response.send({error:"error"})
+        response.send({error:e.message})
     }
     
 })
