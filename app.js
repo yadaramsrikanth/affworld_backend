@@ -158,23 +158,33 @@ app.post("/posts",upload.single('file'),async(request,response)=>{
     try{
         console.log(request.file)
         const {caption}=request.body
-        const result=await cloudinary.uploader.upload_stream({
+        console.log(caption)
+
+        const stream=await cloudinary.uploader.upload_stream({
             folder:"posts",
             resource_type: "auto" 
-        })
-        const stream = cloudinary.uploader.upload_stream({ folder: "posts" }, (result) => {
-            console.log(result);
-        });
-        stream.end(request.file.buffer); 
-        const imageurl=result.secure_url
-        console.log(imageurl)
-        const postcreatequery=`insert into posts(photo_url,caption)
+        },async(error,result)=>{
+            if(error){
+                response.send({error:error.message})
+            }
+            const imageurl=result.secure_url
+            console.log(imageurl)
+            if(!imageurl){
+                response.send({error:"Image URL is not returned from cloudinary"})
+            }
+            const postcreatequery=`insert into posts(photo_url,caption)
         values
         ('${imageurl}','${caption}');`
         const dbResponse=await db.run(postcreatequery)
         const lastid=dbResponse.lastId
         const uploadedItem=await db.get(`select * from posts where id=${lastid}`)
         response.send({uploadedItem})
+    })
+       
+        stream.end(request.file.buffer); 
+        
+        
+        
     }catch(e){
         console.log("error:",e)
         response.send({error:e.message})
