@@ -158,9 +158,14 @@ app.post("/posts",upload.single('file'),async(request,response)=>{
     try{
         console.log(request.file)
         const {caption}=request.body
-        const result=await cloudinary.uploader.upload(request.file.buffer,{
-            folder:"posts"
+        const result=await cloudinary.uploader.upload_stream({
+            folder:"posts",
+            resource_type: "auto" 
         })
+        const stream = cloudinary.uploader.upload_stream({ folder: "posts" }, (result) => {
+            console.log(result);
+        });
+        stream.end(request.file.buffer); 
         const imageurl=result.secure_url
         console.log(imageurl)
         const postcreatequery=`insert into posts(photo_url,caption)
