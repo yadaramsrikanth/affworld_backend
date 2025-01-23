@@ -171,7 +171,9 @@ app.post("/posts",upload.single('file'),async(request,response)=>{
         const postcreatequery=`insert into posts(photo_url,caption)
         values
         ('${imageurl}','${caption}');`
-        await db.run(postcreatequery)
+        const dbResponse=await db.run(postcreatequery)
+        const lastid=dbResponse.lastId
+        console.log(lastid)
         response.send({post:"New post created successfully"})
     }catch(e){
         console.log("error:",e)
