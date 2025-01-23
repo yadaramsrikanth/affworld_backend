@@ -1,3 +1,5 @@
+const dotenv=require("dotenv")
+dotenv.config()
 const express=require("express")
 const app=express()
 const sqlite3=require("sqlite3")
@@ -10,8 +12,7 @@ let PORT=3005
 const bcrypt=require("bcrypt")
 const jwt=require("jsonwebtoken")
 const cors=require("cors")
-const dotenv=require("dotenv")
-dotenv.config()
+
 const multer=require("multer")
 const { error } = require("console")
 const cloudinary=require("cloudinary").v2
@@ -147,9 +148,9 @@ app.get('/posts',async(request,response)=>{
 })
 //Posts Creation Cloudinary
 cloudinary.config({
-    cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
-    api_key:process.env.CLOUDINARY_CLOUD_KEY,
-    api_secret:process.env.CLOUDINARY_CLOUD_SECRET
+    cloud_name:"dqdx0yz2t",
+    api_key:"243595446534154",
+    api_secret:"G6k_3ihbuko0Bzw-UqqERDD6u4g"
 })
 
 const storage=multer.memoryStorage();
