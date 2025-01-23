@@ -21,6 +21,7 @@ app.use(express.json())
 app.use(cors({origin:["http://localhost:3004"],
     methods: ["GET", "POST", "PUT", "DELETE"], 
     allowedHeaders: ["Content-Type", "Authorization"], 
+    credentials: true,
 }))
 const InitializaeDBAndServer=async()=>{
     try{
