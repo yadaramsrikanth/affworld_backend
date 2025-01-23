@@ -153,7 +153,7 @@ cloudinary.config({
 
 const storage=multer.diskStorage({})
 const upload=multer({storage})
-app.post("/posts",upload.single('image'),async(request,response)=>{
+app.post("/posts",upload.single('file'),async(request,response)=>{
     const {caption}=request.body
     const result=await cloudinary.uploader.upload(request.file.path,{
         folder:"posts"
