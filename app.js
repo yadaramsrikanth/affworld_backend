@@ -17,7 +17,7 @@ const { error } = require("console")
 const cloudinary=require("cloudinary").v2
 
 app.use(express.json())
-app.use(cors({origin:"*",
+app.use(cors({origin:"http://localhost:3004",
     methods: ["GET", "POST", "PUT", "DELETE"], 
     allowedHeaders: ["Content-Type", "Authorization"], 
 }))
@@ -147,9 +147,9 @@ app.get('/posts',async(request,response)=>{
 })
 //Posts Creation Cloudinary
 cloudinary.config({
-    cloud_name:"dqdx0yz2t",
-    api_key:"243595446534154",
-    api_secret:"G6k_3ihbuko0Bzw-UqqERDD6u4g"
+    cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
+    api_key:process.env.CLOUDINARY_CLOUD_KEY,
+    api_secret:process.env.CLOUDINARY_CLOUD_SECRET
 })
 
 const storage=multer.memoryStorage();
