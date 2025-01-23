@@ -152,7 +152,7 @@ cloudinary.config({
     api_secret:process.env.CLOUDINARY_CLOUD_SECRET
 })
 
-const storage=multer.diskStorage({})
+const storage=multer.memoryStorage();
 const upload=multer({storage})
 app.post("/posts",upload.single('file'),async(request,response)=>{
     try{
