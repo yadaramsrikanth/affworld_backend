@@ -16,7 +16,10 @@ const multer=require("multer")
 const cloudinary=require("cloudinary").v2
 
 app.use(express.json())
-app.use(cors({origin:"*"}))
+app.use(cors({origin:"*",
+    methods: ["GET", "POST", "PUT", "DELETE"], 
+    allowedHeaders: ["Content-Type", "Authorization"], 
+}))
 const InitializaeDBAndServer=async()=>{
     try{
         db=await open({
@@ -151,7 +154,7 @@ cloudinary.config({
 const storage=multer.diskStorage({})
 const upload=multer({storage})
 app.post("/posts",upload.single('image'),async(request,response)=>{
-    const {caption}=request.body
+    const {caption}=request.body.caption
     const result=await cloudinary.uploader.upload(request.file.path,{
         folder:"posts"
     })
