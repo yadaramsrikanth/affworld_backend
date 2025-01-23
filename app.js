@@ -159,6 +159,12 @@ app.post("/posts",upload.single('file'),async(request,response)=>{
         console.log(request.file)
         const {caption}=request.body
         console.log(caption)
+        if (!request.file || !caption) {
+            return response.status(400).send({ error: "File or caption is missing" });
+        }
+
+
+
 
         const stream=cloudinary.uploader.upload_stream({
             folder:"posts",
@@ -177,7 +183,7 @@ app.post("/posts",upload.single('file'),async(request,response)=>{
             values
         ('${imageurl}','${caption}');`
         const dbResponse=await db.run(postcreatequery)
-        const lastid=dbResponse.lastId
+        const lastid=dbResponse.lastID
         const uploadedItem=await db.get(`select * from posts where id=${lastid}`)
         response.send({uploadedItem})
     })
