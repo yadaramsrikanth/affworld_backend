@@ -157,7 +157,7 @@ const upload=multer({storage})
 app.post("/posts",upload.single('file'),async(request,response)=>{
     try{
         const {caption}=request.body
-        const result=await cloudinary.uploader.upload(request.file.path,{
+        const result=await cloudinary.uploader.upload(request.file.buffer,{
             folder:"posts"
         })
         const imageurl=result.secure_url
