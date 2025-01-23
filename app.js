@@ -160,7 +160,7 @@ app.post("/posts",upload.single('file'),async(request,response)=>{
         const {caption}=request.body
         console.log(caption)
 
-        const stream=await cloudinary.uploader.upload_stream({
+        const stream=cloudinary.uploader.upload_stream({
             folder:"posts",
             resource_type: "auto" 
         },async(error,result)=>{
@@ -172,8 +172,9 @@ app.post("/posts",upload.single('file'),async(request,response)=>{
             if(!imageurl){
                 response.send({error:"Image URL is not returned from cloudinary"})
             }
+          
             const postcreatequery=`insert into posts(photo_url,caption)
-        values
+            values
         ('${imageurl}','${caption}');`
         const dbResponse=await db.run(postcreatequery)
         const lastid=dbResponse.lastId
