@@ -148,7 +148,7 @@ app.get('/posts',async(request,response)=>{
 //Posts Creation Cloudinary
 cloudinary.config({
     cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
-    api_key:process.env.CLOUDINARY_CLOUD_API,
+    api_key:process.env.CLOUDINARY_CLOUD_KEY,
     api_secret:process.env.CLOUDINARY_CLOUD_SECRET
 })
 
