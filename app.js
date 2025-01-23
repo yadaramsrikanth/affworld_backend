@@ -173,8 +173,8 @@ app.post("/posts",upload.single('file'),async(request,response)=>{
         ('${imageurl}','${caption}');`
         const dbResponse=await db.run(postcreatequery)
         const lastid=dbResponse.lastId
-        console.log(lastid)
-        response.send({post:"New post created successfully"})
+        const uploadedItem=await db.get(`select * from posts where id=${lastid}`)
+        response.send({uploadedItem})
     }catch(e){
         console.log("error:",e)
         response.send({error:e.message})
