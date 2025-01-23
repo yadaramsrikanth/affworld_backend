@@ -13,6 +13,7 @@ const cors=require("cors")
 const dotenv=require("dotenv")
 dotenv.config()
 const multer=require("multer")
+const { error } = require("console")
 const cloudinary=require("cloudinary").v2
 
 app.use(express.json())
@@ -166,7 +167,8 @@ app.post("/posts",upload.single('file'),async(request,response)=>{
         await db.run(postcreatequery)
         response.send({post:"New post created successfully"})
     }catch(e){
-        console.log(`error, ${e}`)
+        console.log("error:",e)
+        response.send({error:"error"})
     }
     
 })
