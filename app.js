@@ -151,11 +151,11 @@ app.get('/posts',async(request,response)=>{
 })
 //Posts Creation Cloudinary
 cloudinary.config({
-    cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
-    api_key:process.env.CLOUDINARY_CLOUD_KEY,
-    api_secret:process.env.CLOUDINARY_CLOUD_SECRET
+    cloud_name:"dqdx0yz2t",
+    api_key:"243595446534154",
+    api_secret:"G6k_3ihbuko0Bzw-UqqERDD6u4g"
 })
-
+console.log(cloudinary.config())
 const storage=multer.memoryStorage();
 const upload=multer({storage})
 app.post("/posts",upload.single('file'),async(request,response)=>{
