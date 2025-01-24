@@ -111,8 +111,10 @@ app.post('/tasks',async(request,response)=>{
     const InsertTaskQuery=`Insert Into tasks (name,description,status)
     values
     ('${name}','${description}','Pending');`
-    await db.run(InsertTaskQuery)
-    response.send("task created successfully")
+    const dbResponse=await db.run(InsertTaskQuery)
+    const lastId=await dbResponse.lastID
+    const taskResponse=await db.get(`select * from tasks where id=${lastId}`)
+    response.send({taskResponse})
 })
 
 //Getting tasks
