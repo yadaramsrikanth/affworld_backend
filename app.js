@@ -18,7 +18,7 @@ const { error } = require("console")
 const cloudinary=require("cloudinary").v2
 
 app.use(express.json())
-app.use(cors({origin:["http://localhost:3004","https://affworld-full-stack-project.netlify.app"],
+app.use(cors({origin:["http://localhost:3004","https://affworld-full-stack-project.netlify.app","https://frabjous-lily-de931f.netlify.app"],
     methods: ["GET", "POST", "PUT", "DELETE"], 
     allowedHeaders: ["Content-Type", "Authorization"], 
     credentials: true,
